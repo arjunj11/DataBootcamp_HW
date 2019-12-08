@@ -26,10 +26,12 @@ from flask import Flask,jsonify
 app = Flask(__name__)
 @app.route("/")
 def home():
+    session = Session(engine)
     return ("You are amazing - and you can select any route from the below /n precipitation /n stations /n temperature /n start and end date ")
 
 @app.route("/api/v1.0/precipitation")
 def prec():
+    session = Session(engine)
     dates=[]
     precp=[]
     outputs=session.query(Measurement.date,Measurement.prcp)
@@ -42,6 +44,7 @@ def prec():
 
 @app.route("/api/v1.0/stations")
 def stn():
+    session = Session(engine)
     sttn=[]
     outputa=session.query(Measurement.station).group_by(Measurement.station)
     for row in outputa:
@@ -50,6 +53,7 @@ def stn():
 
 @app.route("/api/v1.0/tobs")
 def temps():
+    session = Session(engine)
     temp1=[]
     outputb=session.query(Measurement.tobs).filter(Measurement.date>='2016-08-23')
     for row in outputb:
@@ -58,11 +62,13 @@ def temps():
 
 @app.route("/api/v1.0/<start>")
 def strt(start):
+    session = Session(engine)
     return jsonify(session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
         filter(Measurement.date >= start).all())
             
 @app.route("/api/v1.0/<start>/<end>")
 def strtend(start,end):
+    session = Session(engine)
     return jsonify(session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
         filter(Measurement.date >= start).filter(Measurement.date <= end).all())         
             
