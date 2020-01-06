@@ -19,7 +19,7 @@ def home():
 
     # Return template and data
     return render_template("index.html", mrs=scraped_dict)
-    print(mars_data)
+    
 
 
 @app.route('/scrape')
