@@ -30,8 +30,7 @@ def scrape():
     soup1=bs(html1,'html.parser')
     imgsrc=soup1.footer.a['data-fancybox-href']
     featured_image_url=url1+imgsrc
-    featured_image_url
-
+    
     url='https://twitter.com/marswxreport?lang=en'
     browser.visit(url)
     html=browser.html
@@ -45,6 +44,8 @@ def scrape():
     table=soup.find_all('table')[0]
     tabledata=pd.read_html(str(table))
     tabledf=tabledata[0]
+    tabledf.rename(columns={0:'Description',1:''},inplace=True)
+    tabledf.set_index('Description')
     tablehtml=tabledf.to_html()
 
     url3='https://astrogeology.usgs.gov'
