@@ -16,6 +16,7 @@ function searchappend(){
         
         console.log("Eurekaaaaaaaaaaa")
         //var tableData1 = tableData.filter(row=>(grab==row.datetime));
+        console.log(tableData)
         var tableData1 = tableData.filter(function(row){
             if(grab==row.datetime){return true}
             else{return false}

@@ -1,5 +1,4 @@
 d3.csv("assets/data/data.csv").then(function(data){
-    
 
     var trace1={
         x:data.map(d=>d.poverty),

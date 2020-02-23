@@ -7,9 +7,15 @@ d3.json("././samples.json").then(function(data){
     d3.select("#personid").on("change",yesman)
     function yesman(){
         var person = d3.select("#personid").property("value")
-        console.log(person)
-        
+        console.log(data.samples)
+        data.samples.forEach(element => {
+            for (z=0;z<element.otu_ids.length;z++){
+                if(element.otu_ids[z]==2722){console.log(element)}
+            }
+        });
+        //console.log(b)
         var a = data.samples.filter( d=> (d.id == person))
+        console.log(a)
         var otudis = a.map(d=>d.otu_ids)
         var samplevalues = a.map(d=>d.sample_values);
         var otulabels=[];
